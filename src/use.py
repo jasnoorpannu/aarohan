@@ -3,8 +3,8 @@
 import pandas as pd
 import joblib
 import numpy as np
-from src.config import MODEL_PATH, TEST_DATA 
-from src.preprocessing import load_raw, get_static_features, advanced_agg
+from config import MODEL_PATH, TEST_DATA 
+from preprocessing import load_raw, get_static_features, advanced_agg
 
 def prepare_inference_data(df, cutoff=None):
     print(f"--- Preparing Data (Cutoff: {cutoff} days) ---")
