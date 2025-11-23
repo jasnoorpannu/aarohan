@@ -43,19 +43,12 @@ def test_predict_csv(csv_file_path, cutoff=None):
         print(f"Success: {data.get('success')}")
         print(f"Total Students: {data.get('total_students')}")
         print(f"Cutoff Days: {data.get('cutoff_days')}")
-        print("\nTop 5 Students by Dropout Probability:")
+        print("\nTop 5 High-Risk Students:")
         print("-" * 50)
         
         for pred in data.get('predictions', [])[:5]:
-            prob = pred['dropout_probability']
-            # Determine risk emoji based on probability (for display only)
-            if prob > 0.75:
-                emoji = "🔴"
-            elif prob > 0.45:
-                emoji = "🟡"
-            else:
-                emoji = "🟢"
-            print(f"{emoji} Student {pred['student_id']}: {prob:.2%}")
+            print(f"{pred['risk_emoji']} Student {pred['student_id']}: "
+                  f"{pred['dropout_probability']:.2%} - {pred['risk_level']}")
     else:
         print(f"Error: {response.json()}")
     print()
@@ -105,15 +98,8 @@ def test_predict_json():
         print("-" * 50)
         
         for pred in data.get('predictions', []):
-            prob = pred['dropout_probability']
-            # Determine risk emoji based on probability (for display only)
-            if prob > 0.75:
-                emoji = "🔴"
-            elif prob > 0.45:
-                emoji = "🟡"
-            else:
-                emoji = "🟢"
-            print(f"{emoji} Student {pred['student_id']}: {prob:.2%}")
+            print(f"{pred['risk_emoji']} Student {pred['student_id']}: "
+                  f"{pred['dropout_probability']:.2%} - {pred['risk_level']}")
     else:
         print(f"Error: {response.json()}")
     print()
